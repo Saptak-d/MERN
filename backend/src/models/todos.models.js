@@ -10,6 +10,10 @@ const todoSchema = new Schema({
         type: String,
         required : true,
     },
+    status :{
+        type :Boolean,
+        default:false
+    },
     createdBy :{
         type :mongoose.Schema.Types.ObjectId,
         ref:"User"

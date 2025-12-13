@@ -8,7 +8,7 @@ export const createTodo = async (req,res)=>{
     if(!title || !content || !createdBy){
       throw new Error("ALL fileds are required to create an todo ");
     }
-    const existtodo = await Todo.findOne({$and:[{title},{createdBy}]});
+    const existtodo = await Todo.findOne({title,createdBy});
     if(existtodo){
         throw new Error("The Todo is alredy exist ");
     }
@@ -28,4 +28,13 @@ export const createTodo = async (req,res)=>{
       message: error.message,
     });
    }
+}
+
+export const updateTodo = async(req,res) => {
+  
+         
+             
+
+
+
 }
