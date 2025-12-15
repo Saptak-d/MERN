@@ -1,6 +1,7 @@
 import express from  'express'
 import authRoute from "./routes/auth.routes.js"
 import cookieParser from "cookie-parser";
+import todorouts from "./routes/todo.routes.js"
 
 
 const app = express();
@@ -10,7 +11,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 
-app.use("/api/v1/",authRoute)
+app.use("/api/v1/auth",authRoute)
+app.use('/api/v1/todo',todorouts);
 
 
 
