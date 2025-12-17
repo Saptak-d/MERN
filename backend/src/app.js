@@ -20,6 +20,15 @@ app.get('/',(req,res)=>{
     res.send("Server is working well");
 });
 
+app.use((err,req,res,next)=>{
+    const {status = 500 , message = "Something went  wrong"} = err;
+    console.log(err);
+    res.status(status).json({
+        success: false,
+        message
+    })
+})
+
 
 
 

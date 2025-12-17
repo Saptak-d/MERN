@@ -2,16 +2,19 @@
 import mongoose from "mongoose";
 import { User } from "../models/user_models.js";
 import jwt from "jsonwebtoken"
+import { asyncHandler } from "../utils/asyncHandler.js";
 
-export const register  = async(req,res)=>{
 
 
-    console.log("METHOD:", req.method);
+export const register  = asyncHandler(async(req,res)=>{
+
+
+  console.log("METHOD:", req.method);
   console.log("URL:", req.originalUrl);
   console.log("HEADERS:", req.headers["content-type"]);
   console.log("BODY:", req.body);
     
- try {
+
 
    const {username , password , email}  = req.body;
    
@@ -39,18 +42,12 @@ export const register  = async(req,res)=>{
         message : "new User is created",
         username : user.username
      })
-    }catch (err){
+    
+});
 
-        return res.status(404).json({
-                message : err.message,
-        
-        })
-    }  
-}
+export const LoginUser = asyncHandler(async(req,res)=>{
 
-export const LoginUser = async(req,res)=>{
-
-  try{
+  
      const { email, password } = req.body;
   
        if(!email || !password){
@@ -87,10 +84,4 @@ export const LoginUser = async(req,res)=>{
     }
           
      )
-  }catch (err){
-        res.status(400).json({
-            message : err.message
-        })
-  }
-
-}
+})

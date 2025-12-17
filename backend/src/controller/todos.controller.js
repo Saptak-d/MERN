@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
 import { Todo } from "../models/todos.models.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 
 
-export const createTodo = async (req,res)=>{
-   try {
+export const createTodo =  asyncHandler(async (req,res)=>{
+   
     
      const {title, content } = req.body;
      const createdBy = req.user.userId;
@@ -25,16 +26,12 @@ export const createTodo = async (req,res)=>{
       message : "Todo is created successfully",
       todo
     })
-   } catch (error) {
-       return res.status(400).json({
-      message: error.message,
-    });
-   }
-}
+ 
+})
 
-export const getTodos = async(req,res)=>{
+export const getTodos = asyncHandler(async(req,res)=>{
 
-  try {
+
     const userId = req.user.userId;
   
       const alltodos = await Todo.find({ createdBy: userId}).sort({ createdAt: -1 });
@@ -44,19 +41,15 @@ export const getTodos = async(req,res)=>{
         todos : alltodos,
       })
   
-  } catch (error) {
-    return res.status(500).json({
-        message : "Failed to fetch todos",
-       
-      })
-  }
-
-}
+  } )
+  
 
 
-export const updateTodo = async(req,res) => {
 
-  try {
+
+export const updateTodo = asyncHandler(async(req,res) => {
+
+ 
    const { id: todoId } = req.params;
     const { title , content} = req.body;
   
@@ -82,18 +75,12 @@ export const updateTodo = async(req,res) => {
        return res.status(200).json({
         message : "Todo update successfully",
        })
-  } catch (error) {
-    
-       return res.status(400).json({
-        message : "Todo  is not updated ",
-        err : error.message
-       })
-  }
-}
+ 
+})
 
 
-export const deleteTodo = async(req,res)=>{
-     try {
+export const deleteTodo = asyncHandler( async(req,res)=>{
+   
          const { id: todoId } = req.params;
          const userID = req.user.userId;;
  
@@ -108,11 +95,5 @@ export const deleteTodo = async(req,res)=>{
        return res.status(200).json({
          message : "The Todo is Deleted Successfully"
        })
-     } catch (error) {
-         return res.status(500).json({
-          message : error.message
-         })
-     }
 
-
-}
+})
